@@ -22,7 +22,7 @@ list(tissue_name = "spinalcord")
 #' ---
 #' 
 ## ----setup, include=FALSE-----------------------------------------------------
-knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(echo = TRUE)
 
 #' 
 #' ## 0-0. Load libraries
@@ -46,7 +46,7 @@ metadataDir <- file.path(homeDir, "metadata")
 
 #' 
 #' ## 0-2. Get gene annotations for hg38
-## -----------------------------------------------------------------------------
+## ---- warning=FALSE, message=FALSE--------------------------------------------
 annotation <- GetGRangesFromEnsDb(ensdb = EnsDb.Hsapiens.v86)
 annotation <- renameSeqlevels(annotation, mapSeqlevels(seqlevels(annotation), "UCSC"))
 genome(annotation) <- "hg38"
@@ -68,7 +68,7 @@ head(file_data)
 #' 
 #' ## 2. cellranger count to seurat object
 #' 
-## ---- echo=FALSE, warning=FALSE, message=FALSE--------------------------------
+## ---- warning=FALSE, message=FALSE--------------------------------------------
 
 # 00: Set environment
 # |
