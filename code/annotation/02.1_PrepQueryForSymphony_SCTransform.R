@@ -135,6 +135,31 @@ for (i in seq_along(file_list)) {
 
 saveRDS(soSCTList, file = file.path(rdataDir, "soSCTList_ForSymphony.rds"))
 
+
+# Load query data
+soSCTList <- readRDS(file = file.path(rdataDir, "soSCTList_ForSymphony.rds"))
+# names(soSCTList)
+sct_list <- soSCTList[["withoutRN01"]]
+rm(soSCTList)
+
+so.features <- SelectIntegrationFeatures(
+        object.list = sct_list
+        ) # default HVG = 2000
+
+sct_list <- PrepSCTIntegration(
+        object.list = sct_list,
+        anchor.features = so.features
+        )
+
+query_obj <- merge(
+        sct_list[[1]],
+        y = sct_list[2:length(sct_list)],
+        project = gse,
+        merge.data = TRUE
+        )
+
+saveRDS(query_obj, file = file.path(outDir, "query_obj.rds"))
+
 #' 
 #' 
 ## -----------------------------------------------------------------------------
